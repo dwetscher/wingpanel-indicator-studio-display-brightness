@@ -1,0 +1,7 @@
+# Grant the logged-in seat user access to the Apple Studio Display HID device
+# so asdbctl can read/write brightness without sudo.
+# Vendor 05ac = Apple; products 1114/1116/1118 = Studio Display variants.
+# Sourced from https://github.com/juliuszint/asdbctl (rules.d/20-asd-backlight.rules)
+SUBSYSTEM=="hidraw", KERNEL=="hidraw*", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="1114", MODE="0660", TAG+="uaccess"
+SUBSYSTEM=="hidraw", KERNEL=="hidraw*", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="1116", MODE="0660", TAG+="uaccess"
+SUBSYSTEM=="hidraw", KERNEL=="hidraw*", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="1118", MODE="0660", TAG+="uaccess"
