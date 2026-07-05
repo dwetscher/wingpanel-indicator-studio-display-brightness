@@ -28,17 +28,14 @@ jobs:
       - name: Build package
         run: dpkg-buildpackage -us -uc -b
 
-      - name: Collect artifacts
+      # Non-tag pushes/PRs just build to validate — nothing is stored.
+      # The .deb is kept only by attaching it to the GitHub Release on a tag.
+      - name: Collect .deb
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           mkdir -p dist
           mv ../*.deb dist/
           ls -l dist/
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: deb
-          path: dist/*.deb
 
       - name: Attach to release
         if: startsWith(github.ref, 'refs/tags/')
