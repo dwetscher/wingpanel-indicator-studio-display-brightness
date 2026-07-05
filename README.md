@@ -38,9 +38,6 @@ Then log out and back in (or restart wingpanel with
 the indicator stays hidden until it is installed and a Studio Display is
 connected. The `.deb` bundles the udev rule.
 
-> Every push builds a `.deb` in CI; tagging a release (`v*`) attaches it to a
-> GitHub Release.
-
 ## Build from source
 
 ### Requirements
