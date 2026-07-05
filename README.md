@@ -87,11 +87,28 @@ The module installs as `libstudio-display-brightness.so` under
 
 ## Uninstall
 
+If you installed the `.deb`:
+
 ```bash
-sudo ninja -C build uninstall
-sudo rm -f /etc/udev/rules.d/20-asd-backlight.rules
+sudo apt remove wingpanel-indicator-studio-display-brightness
 killall io.elementary.wingpanel
 ```
+
+If you installed from source (`install.sh` / `sudo ninja install`), remove the
+files explicitly — `ninja uninstall` only works if the original build dir with
+its install log is still around:
+
+```bash
+sudo rm -f /usr/lib/x86_64-linux-gnu/wingpanel/libstudio-display-brightness.so
+sudo rm -f /etc/udev/rules.d/20-asd-backlight.rules \
+           /usr/lib/udev/rules.d/20-asd-backlight.rules
+sudo udevadm control --reload-rules
+killall io.elementary.wingpanel
+```
+
+This leaves `asdbctl` (and the `/usr/local/bin/asdbctl` symlink) in place, since
+it isn't part of this project and the `.deb` build still needs it. Remove that
+separately only if you're uninstalling asdbctl entirely.
 
 ## Troubleshooting
 
