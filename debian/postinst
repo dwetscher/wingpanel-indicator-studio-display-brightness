@@ -1,0 +1,15 @@
+#!/bin/sh
+# Reload udev so the bundled Studio Display HID rule applies to already-connected
+# devices without a replug.
+set -e
+
+if [ "$1" = "configure" ]; then
+    if command -v udevadm >/dev/null 2>&1; then
+        udevadm control --reload-rules || true
+        udevadm trigger --subsystem-match=hidraw || true
+    fi
+fi
+
+#DEBHELPER#
+
+exit 0

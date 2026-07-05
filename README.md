@@ -8,6 +8,8 @@ and drives [`asdbctl`](https://github.com/juliuszint/asdbctl) in the background.
 - **Scroll** over the panel icon to step brightness up/down.
 - **Click** the icon for a dropdown with a native brightness **slider**.
 
+![The Studio Display Brightness indicator open in the wingpanel top bar, showing a native slider at 85%](assets/wingpanel-indicator.png)
+
 ## How it works
 
 The Studio Display is a USB HID panel, not a normal backlight, so `asdbctl`
@@ -20,7 +22,28 @@ the indicator:
 
 The indicator hides itself when no Studio Display is present.
 
-## Requirements
+## Install (.deb)
+
+Download the latest `.deb` from the
+[Releases page](https://github.com/dwetscher/wingpanel-indicator-studio-display-brightness/releases)
+and install it:
+
+```bash
+sudo apt install ./wingpanel-indicator-studio-display-brightness_*.deb
+```
+
+Then log out and back in (or restart wingpanel with
+`killall io.elementary.wingpanel`) for the icon to appear. You still need
+[`asdbctl`](https://github.com/juliuszint/asdbctl) on your `PATH` (see below) —
+the indicator stays hidden until it is installed and a Studio Display is
+connected. The `.deb` bundles the udev rule.
+
+> Every push builds a `.deb` in CI; tagging a release (`v*`) attaches it to a
+> GitHub Release.
+
+## Build from source
+
+### Requirements
 
 ```bash
 sudo apt install valac meson ninja-build build-essential pkg-config \
@@ -39,18 +62,18 @@ This installs to `~/.cargo/bin`. `install.sh` symlinks it into `/usr/local/bin`
 so wingpanel can find it (apt's cargo doesn't put `~/.cargo/bin` on the session
 PATH).
 
-## Install
+### Install script
 
 ```bash
 ./install.sh
 ```
 
 This builds the indicator, installs the module into wingpanel's indicators
-directory (`sudo ninja install`), installs the udev rule to
-`/etc/udev/rules.d/` (so `asdbctl` works without sudo), symlinks `asdbctl`
-system-wide, and restarts wingpanel so the icon appears.
+directory (`sudo ninja install`), installs the udev rule (so `asdbctl` works
+without sudo), symlinks `asdbctl` system-wide, and restarts wingpanel so the
+icon appears.
 
-## Manual build
+### Manual build
 
 ```bash
 meson setup build

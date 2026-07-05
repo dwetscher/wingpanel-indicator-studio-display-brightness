@@ -12,7 +12,6 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD_DIR="$REPO_DIR/build"
-UDEV_RULE="20-asd-backlight.rules"
 WINGPANEL_BIN="io.elementary.wingpanel"
 
 info()  { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
@@ -80,11 +79,12 @@ if [ -n "${ASDBCTL_BIN:-}" ]; then
     esac
 fi
 
-info "Installing udev rule (sudo)…"
-sudo install -m 0644 "$REPO_DIR/data/$UDEV_RULE" "/etc/udev/rules.d/$UDEV_RULE"
+# The udev rule is installed by `meson install` (to /usr/lib/udev/rules.d);
+# just reload so it applies to the already-connected display.
+info "Reloading udev rules (sudo)…"
 sudo udevadm control --reload-rules
 sudo udevadm trigger
-info "udev rule installed. If brightness still needs sudo, replug the display once."
+info "If brightness still needs sudo, replug the display once."
 
 # ---------------------------------------------------------------------------
 # 4. Reload wingpanel so it picks up the new indicator

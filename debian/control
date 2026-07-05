@@ -1,0 +1,32 @@
+Source: wingpanel-indicator-studio-display-brightness
+Section: x11
+Priority: optional
+Maintainer: dwetscher <24957205+dwetscher@users.noreply.github.com>
+Build-Depends:
+ debhelper-compat (= 13),
+ meson,
+ ninja-build,
+ valac,
+ pkg-config,
+ libgtk-3-dev,
+ libwingpanel-dev,
+ libgudev-1.0-dev,
+Standards-Version: 4.6.2
+Homepage: https://github.com/dwetscher/wingpanel-indicator-studio-display-brightness
+Rules-Requires-Root: no
+
+Package: wingpanel-indicator-studio-display-brightness
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Recommends: asdbctl
+Description: Apple Studio Display brightness indicator for wingpanel
+ A native elementary OS wingpanel indicator that controls the brightness of an
+ Apple Studio Display. It adds its own icon to the panel with a slider popover
+ and scroll-to-adjust, and appears only while a Studio Display is connected.
+ .
+ Brightness is driven through the asdbctl command-line tool, which must be
+ installed separately (https://github.com/juliuszint/asdbctl). This package
+ ships the udev rule that grants the logged-in user access to the display's
+ HID device without root.

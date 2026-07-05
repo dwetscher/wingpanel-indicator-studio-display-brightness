@@ -18,4 +18,7 @@ common_deps = [gtk_dep, glib_dep, gio_dep, wingpanel_dep, gudev_dep]
 # Where wingpanel looks for indicator modules (e.g. /usr/lib/.../wingpanel).
 indicatorsdir = wingpanel_dep.get_variable(pkgconfig: 'indicatorsdir')
 
+# udev rule granting the seat user access to the Studio Display HID device.
+install_data('data/20-asd-backlight.rules', install_dir: '/usr/lib/udev/rules.d')
+
 subdir('src')

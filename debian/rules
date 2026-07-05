@@ -1,0 +1,5 @@
+#!/usr/bin/make -f
+# debhelper auto-detects the meson build system from meson.build.
+
+%:
+	dh $@
