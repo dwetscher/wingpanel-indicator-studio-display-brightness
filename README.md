@@ -124,6 +124,14 @@ trigger`, and replug the display once.
   natural scrolling and it feels inverted, tell me and I'll wire it to the
   natural-scroll setting like the Sound indicator does.
 
+## Acknowledgements
+
+All the hard part — talking to the Studio Display over USB HID — is done by
+[`asdbctl`](https://github.com/juliuszint/asdbctl) by
+[juliuszint](https://github.com/juliuszint). This project is only a wingpanel
+front-end that drives that command-line tool. The bundled udev rule
+(`data/20-asd-backlight.rules`) is taken from the same project.
+
 ## License
 
 [GPL-3.0-or-later](LICENSE)
